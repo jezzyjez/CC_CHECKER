@@ -4,18 +4,21 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(__file__) + "/../lib/")
-import bcom_checker as bcom
+import bcom_checker 
 
 class BcomComponentTest(unittest.TestCase):
     """Test cases for determining the component to check """
     def setUp(self):
-        self.common_func = cf.CommonFunc()
+        self.bcom = bcom_checker.BcomChecker()
 
-    def test_is_bcom(self):
-        self.assertEqual(self.common_func.parse_component('Bcom '), 'bcom')
+    def test_get_command(self):
+        test_parameters = ['bcom', 'int:db:write']
+        bcom_command = self.bcom.get_command(test_parameters)
+        self.assertEqual(bcom_command, 'int:db:write')
 
-    def test_is_fdb(self):
-        self.assertEqual(self.common_func.parse_component('fdb '), 'fdb')
-         
-    def test_is_not_fdb_or_bcom(self):
-        self.assertEqual(self.common_func.parse_component('not on component'), None)
+    def test_invalid_get_command(self):
+        test_parameters = ['bcom', 'int:ds:write']
+        bcom_command = self.bcom.get_command(test_parameters)
+        self.assertEqual(bcom_command, None)
+
+
