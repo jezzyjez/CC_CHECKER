@@ -28,8 +28,8 @@ def main():
             if component == "bcom":
                 status_message = bcom.run_command_check(command) 
             if not status_message.status:
-                out_file.write("Comments for Line Number:{}\n".format(line_number))
-                out_file.write(status_message.message)
+                out_file.write("Comments for Line Number:{0} - command:{1} ".format(line_number, command))
+                out_file.write("{} \n".format(status_message.message))
 
     
 if __name__ == "__main__":
